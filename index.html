@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<link type="text/css" rel="stylesheet" href="font-awesome.css" />
+	<link type="text/css" rel="stylesheet" href="css/grid.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <title>Puissance 4</title>
+  </head>
+  <body>
+	<table>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	<button id="button1">col 1</button>
+	<button id="button2">col 2</button>
+	<button id="button3">col 3</button>
+	<button id="button4">col 4</button>
+<script type="text/javascript">
+	var td = document.getElementsByTagName('td');
+	var button = document.getElementsByTagName('button');
+	var backgroundColor="";
+	var color="";
+	var joueur=0;
+	var cases = [['','','',''],['','','',''],['','','',''],['','','','']];
+	var joueurPlay=function(pColone,tdNumber,i){
+		joueur++;
+		if(joueur %2 ==0){cases[pColone][i]="X";backgroundColor="purple";color="white";}
+		else{cases[pColone][i]="O";backgroundColor="red";color="black";}
+		td[tdNumber+i].innerHTML=cases[pColone][i];td[tdNumber+i].style.backgroundColor=backgroundColor;td[tdNumber+i].style.color=color;
+	};
+	var gameFour= function(i) 
+	{
+		var $this=prototype={	
+			initialize:function(){
+				this.add();
+				this.check();
+				return this;
+			},
+			add:function(){	
+				switch("")
+				{
+					case cases[3][i]:joueurPlay(3,12,i); break;
+					case cases[2][i]:joueurPlay(2,8,i); break;
+					case cases[1][i]:joueurPlay(1,4,i); break;
+					case cases[0][i]:joueurPlay(0,0,i); break;
+				}
+			},
+			check:function(){
+				for(var k = 0, kl = cases.length; k < kl; k++) {
+					if(/^(XXXX|OOOO)$/.test(cases[k].join('')) || /^(XXXX|OOOO)$/.test(cases[0][k]+cases[1][k]+cases[2][k]+cases[3][k])){alert("victory");document.location.reload();}
+					if(/^(XXXX|OOOO)$/.test(cases[0][0]+cases[1][1]+cases[2][2]+cases[3][3]) || /^(XXXX|OOOO)$/.test(cases[0][3]+cases[1][2]+cases[2][1]+cases[3][0])){alert("VICTORY");document.location.reload();}
+					if(joueur==16){alert("match nul");}	
+				}
+			}
+		}
+		return $this.initialize();
+	}
+	for (var i=0, il=button.length;i<il;i++) // check nos buttons
+	{
+		(function(i,il)
+		{
+			button[i].addEventListener("click",function(){
+				if(joueur<16)gameFour(i);
+			});
+		})(i,il);
+	}
+  </script>
+  </body>
+</html>
